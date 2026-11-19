@@ -76,9 +76,8 @@ main > article { max-width: calc(var(--measure) + var(--outline-width) + 3.5rem)
 .reading-grid { display: grid; grid-template-columns: minmax(0, var(--measure)) var(--outline-width); gap: 3.5rem; align-items: start; }
 .in-chapter { position: sticky; top: 32px; border-left: 1px solid var(--line); padding-left: 18px; }
 .in-chapter .eyebrow { font-size: 0.82rem; line-height: 21px; margin-bottom: 12px; }
-/* The chapter's first heading lines up with the first item in "In this chapter": the label above the
-   list takes 33px (21px line + 12px gap); 29px of margin centres the heading on that item. */
-.prose > h2:first-child { margin-top: 29px; }
+/* The chapter's first heading starts level with the top of "In this chapter" (Andy, 2026-11-19). */
+.prose > h2:first-child { margin-top: 0; }
 .in-chapter nav { display: grid; gap: 10px; }
 .in-chapter a { font-size: 0.92rem; line-height: 1.4; color: var(--muted); text-decoration: none; }
 .in-chapter a:hover { color: var(--ink); text-decoration: underline; }
