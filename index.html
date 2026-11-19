@@ -64,7 +64,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .page { min-width: 0; display: flex; flex-direction: column; }
 .topbar { display: none; }
 main { flex: 1; padding-block: 48px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-main > section, main > article { max-width: var(--measure); margin-inline: auto; }
+/* Content starts a short, steady distance from the rail instead of centring in the space beside it. */
+main > section, main > article { max-width: var(--measure); margin-left: clamp(0px, 3vw, 48px); margin-right: auto; }
 main > article { max-width: calc(var(--measure) + var(--outline-width) + 3.5rem); }
 
 /* A chapter: its text beside an "In this chapter" list of sections that stays in view. */
