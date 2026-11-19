@@ -69,7 +69,10 @@ main > section, main > article { max-width: var(--measure); margin-left: clamp(0
 main > article { max-width: calc(var(--measure) + var(--outline-width) + 3.5rem); }
 
 /* A chapter: its text beside an "In this chapter" list of sections that stays in view. */
-.chapter-header { max-width: var(--measure); }
+/* A thin rule under the chapter header, across the text and the section list (as in the Disparti guide). */
+.chapter-header { padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
+.chapter-header h1, .chapter-header .lede { max-width: var(--measure); }
+.chapter-header .lede { margin-bottom: 0; }
 .reading-grid { display: grid; grid-template-columns: minmax(0, var(--measure)) var(--outline-width); gap: 3.5rem; align-items: start; }
 .in-chapter { position: sticky; top: 32px; border-left: 1px solid var(--line); padding-left: 18px; }
 .in-chapter .eyebrow { font-size: 0.82rem; margin-bottom: 12px; }
