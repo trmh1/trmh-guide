@@ -28,6 +28,7 @@
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --measure: 40rem;
   --outline-width: 12rem;
+  --jobs-width: 15rem;
   --rail-width: 17.5rem;
 }
 /* Light only (Andy, 2026-11-19): the site's paper and ink in every viewer theme. */
@@ -112,6 +113,25 @@ h1 { margin: 0 0 12px; font: 600 clamp(1.9rem, 3.4vw, 2.5rem)/1.15 var(--display
 .pager span { font-size: 0.82rem; font-weight: 400; color: var(--muted); }
 .pager .next { text-align: right; }
 
+/* The overview: its text beside a "Common jobs" list, in the same column as a chapter's "In this chapter"
+   so the right-hand column doesn't move between the overview and the chapters. */
+/* The jobs column starts where "In this chapter" does but is a little wider, so fewer jobs wrap. */
+main > section.overview {
+  max-width: calc(var(--measure) + var(--jobs-width) + 3.5rem);
+  display: grid; grid-template-columns: minmax(0, var(--measure)) var(--jobs-width); column-gap: 3.5rem;
+  grid-template-areas: "hero jobs" "contents jobs" "notice jobs"; align-items: start;
+}
+main > section.overview[hidden] { display: none; }
+.overview-hero { grid-area: hero; }
+.overview .contents { grid-area: contents; }
+.overview .notice { grid-area: notice; }
+.jobs { grid-area: jobs; position: sticky; top: 32px; border-left: 1px solid var(--line); padding-left: 18px; }
+.jobs .eyebrow { font-size: 0.82rem; line-height: 21px; margin-bottom: 14px; }
+.jobs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.jobs a { display: grid; gap: 1px; text-decoration: none; }
+.jobs .job { font-size: 0.95rem; line-height: 1.35; font-weight: 600; color: var(--heading); }
+.jobs .where { font-size: 0.84rem; line-height: 1.35; color: var(--muted); }
+.jobs a:hover .job { color: var(--accent); text-decoration: underline; }
 .overview h1 { font-size: clamp(2rem, 3.8vw, 2.8rem); }
 .start { margin: 0 0 40px; }
 .button { display: inline-block; padding: 10px 18px; border-radius: 999px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 600; }
@@ -146,6 +166,10 @@ h1 { margin: 0 0 12px; font: 600 clamp(1.9rem, 3.4vw, 2.5rem)/1.15 var(--display
   .reading-grid { display: flex; flex-direction: column-reverse; gap: 24px; }
   .in-chapter { position: static; border-left: 0; border-bottom: 1px solid var(--line); padding: 0 0 18px; }
   .in-chapter nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  /* The jobs move under the start button, two to a row where they fit. */
+  main > section.overview { max-width: var(--measure); grid-template-columns: minmax(0, 1fr); grid-template-areas: "hero" "jobs" "contents" "notice"; }
+  .jobs { position: static; border-left: 0; border-block: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
+  .jobs ul { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 14px 24px; }
 }
 @media (max-width: 900px) {
   .prose h2, .prose h3 { scroll-margin-top: 72px; }
@@ -184,10 +208,13 @@ h1 { margin: 0 0 12px; font: 600 clamp(1.9rem, 3.4vw, 2.5rem)/1.15 var(--display
     <main id="main" tabindex="-1">
       <section class="results" id="results" hidden aria-live="polite"></section>
       <section class="overview" id="overview">
-        <p class="eyebrow">For everyone who edits the website</p>
-        <h1>How the Three Rivers website is put together, and where to make each change.</h1>
-        <p class="lede">This handbook covers how this site&#x27;s admin is set up: which record owns each piece of content, how pages and services work, and how to publish safely. Edit content on the live site only.</p>
-        <p class="start"><a class="button" href="#admin-at-a-glance">Start with the admin at a glance</a></p>
+        <div class="overview-hero">
+          <p class="eyebrow">For everyone who edits the website</p>
+          <h1>How the Three Rivers website is put together, and where to make each change.</h1>
+          <p class="lede">This handbook covers how this site&#x27;s admin is set up: which record owns each piece of content, how pages and services work, and how to publish safely. Edit content on the live site only.</p>
+          <p class="start"><a class="button" href="#admin-at-a-glance">Start with the admin at a glance</a></p>
+        </div>
+        <aside class="jobs" aria-labelledby="jobs-title"><p class="eyebrow" id="jobs-title">Common jobs</p><ul><li><a href="#edit-in-preview-select-to-edit"><span class="job">Fix wording on a page</span><span class="where">Editing from the preview</span></a></li><li><a href="#writing-phone-numbers"><span class="job">Change the practice phone number</span><span class="where">Writing on this site</span></a></li><li><a href="#clinicians"><span class="job">Add or update a clinician</span><span class="where">Clinicians</span></a></li><li><a href="#photos-video-uploading"><span class="job">Add or replace a photo</span><span class="where">Photos and video</span></a></li><li><a href="#faqs-fees-insurance"><span class="job">Update fees or insurance plans</span><span class="where">FAQs, fees and insurance</span></a></li><li><a href="#site-settings-header"><span class="job">Change the menu</span><span class="where">Site Settings, header and footer</span></a></li><li><a href="#publish-the-private-checkbox"><span class="job">Keep a page private while you work on it</span><span class="where">Private, publish and history</span></a></li><li><a href="#publish-versions"><span class="job">Bring back an earlier version</span><span class="where">Private, publish and history</span></a></li><li><a href="#addresses-changing-a-slug"><span class="job">Move a page to a new address</span><span class="where">Addresses and moving pages</span></a></li><li><a href="#help-ask-andy"><span class="job">Anything else: ask Andy</span><span class="where">Questions and checks</span></a></li></ul></aside>
         <div class="contents"><section class="group"><h2>Start here</h2><ul><li><a href="#admin-at-a-glance"><strong>The admin at a glance</strong><span>Signing in, the dashboard, the sidebar, and why content is edited only on the live site.</span></a></li><li><a href="#where-content-lives"><strong>Where content lives</strong><span>Which record owns each piece of content, so one edit updates every page that shows it.</span></a></li></ul></section><section class="group"><h2>Pages</h2><ul><li><a href="#pages-sections"><strong>Pages and sections</strong><span>Page designs, adding and ordering sections, and the shared treatment design.</span></a></li><li><a href="#edit-in-preview"><strong>Editing from the preview</strong><span>Clicking text in the live preview, and which record opens.</span></a></li><li><a href="#services"><strong>Services</strong><span>Service pages: creating one, its card, care pathways and program facts.</span></a></li><li><a href="#addresses"><strong>Addresses and moving pages</strong><span>Slugs, the fixed part of an address, and Change slug with its redirects.</span></a></li></ul></section><section class="group"><h2>People and practice</h2><ul><li><a href="#clinicians"><strong>Clinicians</strong><span>Profiles, services provided, availability, photos and order.</span></a></li><li><a href="#faqs-fees-insurance"><strong>FAQs, fees and insurance</strong><span>Question groups that pages choose, fee amounts and insurance plans.</span></a></li><li><a href="#virtual-iop"><strong>Virtual IOP and programs</strong><span>Program settings, program facts, tracks, groups and the schedule.</span></a></li></ul></section><section class="group"><h2>Writing and media</h2><ul><li><a href="#writing"><strong>Writing on this site</strong><span>Text fields, practice facts in text, button wording, phone numbers and links.</span></a></li><li><a href="#photos-video"><strong>Photos and video</strong><span>Uploading, alt text, focal points, featured images and checking crops.</span></a></li></ul></section><section class="group"><h2>Publishing</h2><ul><li><a href="#publish"><strong>Private, publish and history</strong><span>The Private checkbox, going live, checking your work, and restoring a version.</span></a></li><li><a href="#site-settings"><strong>Site Settings, header and footer</strong><span>Practice details, locations, safety notice, button wording, navigation and footer.</span></a></li><li><a href="#help"><strong>Questions and checks</strong><span>When to ask Andy, common surprises, and a checklist for any change.</span></a></li></ul></section></div>
         <p class="notice">Checked against the site&#x27;s code and a copy of the live content on 19 November 2026.</p>
       </section>
